@@ -3,6 +3,7 @@ import Snake from '../../models/Snake';
 import Food from '../../models/Food';
 import Grid from '../../models/Grid';
 import Constants from '../../models/Constants';
+import FoodGenerator from '../../models/FoodGenerator';
 
 export default class PlayScene extends Phaser.Scene {
   constructor() {
@@ -20,7 +21,11 @@ export default class PlayScene extends Phaser.Scene {
   preload() {
     this.load.image('body', 'img/body.png');
     this.load.image('head', 'img/head.png');
-    this.load.image('food', 'img/food.png');
+    this.load.image('meat', 'img/food/meat.png');
+    this.load.image('chicken', 'img/food/chicken.png');
+    this.load.image('strawberry', 'img/food/strawberry.png');
+    this.load.image('water-melon', 'img/food/water-melon.png');
+    this.load.image('apple', 'img/food/apple.png');
   }
 
   create() {
@@ -94,6 +99,7 @@ export default class PlayScene extends Phaser.Scene {
       const invalidLocations = this.snake.getLocations();
       const location = this.grid.getRandomValidLocation(invalidLocations);
 
+      FoodGenerator.generate(this.food);
       this.food.setPosition(
         (location.x + 0.5) * Constants.game.image.SIZE,
         (location.y + 0.5) * Constants.game.image.SIZE,

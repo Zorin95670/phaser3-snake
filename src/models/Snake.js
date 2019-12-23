@@ -2,10 +2,11 @@ import Phaser from 'phaser';
 import Constants from '@/models/Constants';
 
 const Snake = new Phaser.Class({
-  initialize(scene, x, y) {
+  initialize(scene, x, y, endGameCallBack) {
     this.headPosition = new Phaser.Geom.Point(x, y);
 
     this.body = scene.add.group();
+    this.endGameCallBack = endGameCallBack;
 
     this.head = this.body.create(
       x * Constants.game.image.SIZE,
@@ -118,6 +119,7 @@ const Snake = new Phaser.Class({
 
     if (hitBody) {
       this.alive = false;
+      this.endGameCallBack();
       return false;
     }
     //  Update the timer ready for the next movement

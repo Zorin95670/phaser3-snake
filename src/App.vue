@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     Welcome to snake!!!
+    <game/>
   </div>
 </template>
 
 <script>
+import Game from '@/components/Game.vue';
 
 export default {
   name: 'app',
-  components: {},
+  components: { Game },
 };
 </script>
 

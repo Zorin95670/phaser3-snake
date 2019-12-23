@@ -17,8 +17,9 @@ const Food = new Phaser.Class({
 
     scene.children.add(this);
   },
-  eating() {
+  eating(score) {
     this.total += 1;
+    score.setText(`Score: ${this.total}`);
   },
 });
 

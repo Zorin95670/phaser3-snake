@@ -133,11 +133,11 @@ const Snake = new Phaser.Class({
       }
     }
   },
-  collideWithFood(food) {
+  collideWithFood(food, score) {
     if (this.head.x === food.x && this.head.y === food.y) {
       this.eat(food.action, food.multiplicator);
 
-      food.eating();
+      food.eating(score);
 
       return true;
     }

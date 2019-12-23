@@ -12,6 +12,9 @@ export default class PlayScene extends Phaser.Scene {
     this.cursors = null;
     this.grid = null;
     this.score = null;
+    this.endGame = false;
+    this.endGameText = null;
+    this.endGameRestart = null;
   }
 
   preload() {
@@ -23,7 +26,7 @@ export default class PlayScene extends Phaser.Scene {
   create() {
     this.grid = new Grid(Constants.game.block.WIDTH, Constants.game.block.HEIGHT);
     let location = this.grid.getRandomValidLocation();
-    this.snake = new Snake(this, location.x + 0.5, location.y + 0.5);
+    this.snake = new Snake(this, location.x + 0.5, location.y + 0.5, () => this.gameOver());
     location = this.grid.getRandomValidLocation([location]);
     this.food = new Food(this, location.x + 0.5, location.y + 0.5);
     const graphics = this.add.graphics();
@@ -32,13 +35,40 @@ export default class PlayScene extends Phaser.Scene {
       fontSize: '16px',
       fill: Constants.color.SCORE,
     });
+    this.endGameText = this.add.text(
+      Constants.screen.WIDTH / 2,
+      Constants.screen.HEIGHT / 2,
+      'GAME OVER',
+      {
+        fontSize: '40px',
+        fill: Constants.color.SCORE,
+      },
+    );
+    this.endGameText.setOrigin(0.5);
+    this.endGameText.visible = false;
+    this.endGameRestart = this.add.text(
+      Constants.screen.WIDTH / 2,
+      Constants.screen.HEIGHT / 2 + 40,
+      'Push enter to Restart',
+      {
+        fontSize: '20px',
+        fill: Constants.color.SCORE,
+      },
+    );
+    this.endGameRestart.setOrigin(0.5);
+    this.endGameRestart.visible = false;
 
     //  Create our keyboard controls
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors.enter = this.input.keyboard.addKey('ENTER');
   }
 
   update(time) {
     if (!this.snake.alive) {
+      if (this.cursors.enter.isDown) {
+        this.endGame = false;
+        this.scene.restart();
+      }
       return;
     }
 
@@ -69,5 +99,15 @@ export default class PlayScene extends Phaser.Scene {
         (location.y + 0.5) * Constants.game.image.SIZE,
       );
     }
+  }
+
+  gameOver() {
+    if (this.endGame) {
+      return;
+    }
+
+    this.endGameText.visible = true;
+    this.endGameRestart.visible = true;
+    this.endGame = true;
   }
 }

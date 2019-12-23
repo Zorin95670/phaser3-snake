@@ -32,6 +32,7 @@ class Constants {
     return {
       BACKGROUND: '#BFCC00',
       GRID: 0xDEE667,
+      SCORE: '#000',
     };
   }
 }

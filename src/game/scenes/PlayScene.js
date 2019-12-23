@@ -11,6 +11,7 @@ export default class PlayScene extends Phaser.Scene {
     this.food = null;
     this.cursors = null;
     this.grid = null;
+    this.score = null;
   }
 
   preload() {
@@ -27,6 +28,10 @@ export default class PlayScene extends Phaser.Scene {
     this.food = new Food(this, location.x + 0.5, location.y + 0.5);
     const graphics = this.add.graphics();
     Grid.drawGrid(graphics);
+    this.score = this.add.text(5, 5, 'Score: 0', {
+      fontSize: '16px',
+      fill: Constants.color.SCORE,
+    });
 
     //  Create our keyboard controls
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -55,7 +60,7 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     //  If the snake updated, we need to check for collision against food
-    if (this.snake.update(time) && this.snake.collideWithFood(this.food)) {
+    if (this.snake.update(time) && this.snake.collideWithFood(this.food, this.score)) {
       const invalidLocations = this.snake.getLocations();
       const location = this.grid.getRandomValidLocation(invalidLocations);
 

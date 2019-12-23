@@ -35,6 +35,40 @@ class Constants {
       SCORE: '#000',
     };
   }
+
+  static get foods() {
+    return [{
+      image: 'meat',
+      min: 0,
+      max: 1,
+      point: 500,
+      multiplicator: 10,
+    }, {
+      image: 'chicken',
+      min: 2,
+      max: 5,
+      point: 100,
+      multiplicator: 5,
+    }, {
+      image: 'strawberry',
+      min: 6,
+      max: 20,
+      point: 10,
+      multiplicator: 1,
+    }, {
+      image: 'water-melon',
+      min: 21,
+      max: 50,
+      point: 5,
+      multiplicator: 2,
+    }, {
+      image: 'apple',
+      min: 51,
+      max: 99,
+      point: 1,
+      multiplicator: 1,
+    }];
+  }
 }
 
 export default Constants;

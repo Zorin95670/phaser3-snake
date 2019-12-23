@@ -7,18 +7,19 @@ const Food = new Phaser.Class({
   initialize(scene, x, y) {
     Phaser.GameObjects.Image.call(this, scene);
 
-    this.setTexture('food');
+    this.setTexture('apple');
     this.setPosition(x * Constants.game.image.SIZE, y * Constants.game.image.SIZE);
     this.setOrigin(0.5);
 
     this.total = 0;
     this.multiplicator = 1;
+    this.point = 1;
     this.action = 'grow';
 
     scene.children.add(this);
   },
   eating(score) {
-    this.total += 1;
+    this.total += this.point;
     score.setText(`Score: ${this.total}`);
   },
 });
